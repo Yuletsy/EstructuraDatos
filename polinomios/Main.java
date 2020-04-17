@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 public class Main {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		// TODO Auto-generated method stub
 		BufferedReader dato = new BufferedReader(new InputStreamReader(System.in));
 
 		int salir = 1;
@@ -133,29 +132,28 @@ public class Main {
 			
 		}
 		
-		// DESDE AQUI EMPIEZA LA PROGRAMACION EN SUMA
-		int[] mipoli = new int[100];// AQUI VA A GUARDARCE MI POLINOMIO
-		int aux = 0;// AQUI SE VA ALMACENAR MI MAYOR NUMERO
+		int[] polinomiosave = new int[100];
+		int aux = 0;
 		int vueltas = cantidad + cantidad2;
 		int cambios1 = 0, cambios2 = 0;
 		
 		for (int j = 0; j < cantidad; j++) {
-			mipoli[j] = numerosl1[j];
+			polinomiosave[j] = numerosl1[j];
 			
 		}
 		for (int j = 0; j < cantidad2; j++) {
-			mipoli[cantidad++] = numerosl2[j];
+			polinomiosave[cantidad++] = numerosl2[j];
 		}
 		
 		// HEMOS ELIMINADO LOS REPETIDOS
 		int ver2 = 0;
 		for (int i = 0; i < vueltas; i++) {
 			for (int j = 0; j < vueltas; j++) {
-				if (mipoli[i] == mipoli[j])
+				if (polinomiosave[i] == polinomiosave[j])
 					ver2++;
 				
 				if (ver2 == 2) {
-					mipoli[j] = 0;
+					polinomiosave[j] = 0;
 					ver2--;
 				}
 				
@@ -164,10 +162,9 @@ public class Main {
 			
 		}
 		
-		// VAMOS HA DEJAR SOLO CON LOS EXPONENTES CONTAR LOS CEROS
 		int ccero = 0;
 		for (int i = 0; i < vueltas; i++) {
-			if (mipoli[i] == 0) {
+			if (polinomiosave[i] == 0) {
 				ccero++;
 			}
 		}
@@ -175,12 +172,11 @@ public class Main {
 		int[] vpolinomio = new int[actual];
 		int cvpoli = 0;
 		for (int i = 0; i < vueltas; i++) {
-			if (mipoli[i] != 0) {
-				vpolinomio[cvpoli] = mipoli[i];
+			if (polinomiosave[i] != 0) {
+				vpolinomio[cvpoli] = polinomiosave[i];
 				cvpoli++;
 			}
 		}
-		// ORDENAMOS
 		
 		Orden(vpolinomio, cvpoli);
 		
@@ -299,12 +295,7 @@ public class Main {
 	}
 	public static void producto(Nodo poli1, Nodo poli2, int cantidad, int cantidad2) {
 		
-		// MULTIPLICAMOS CADA TERMINO DEL SEGUNDO POR EL PRIMER POLINOMIO Y GUARDAMOS
-		// CADA UNA LISTA
-		// PARA DESPUES LLAMAR A MI METODO DE SUMA DE LISTA Y LISTO.
-		
-		Lista guardap1 = new Lista();// GUARDA MI LISTA CON LOS ELEMNTOS MULTIPLICADOS
-		// PARA DESPUES SUMAR TODO DE UNA BUENA Y MALDITA VEZ jajaj
+		Lista guardap1 = new Lista();
 		Nodo a;
 		Nodo b;
 		
