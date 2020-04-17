@@ -1,100 +1,76 @@
 package co.edu.unac.polinomios;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Polinomio {
 	private Nodo cabeza;
-
-	public Polinomio() {
-		cabeza = null;
-	}
 
 	public Nodo getCabeza() {
 		return cabeza;
 	}
 
-	public Polinomio sumar(Polinomio polinomio1, Polinomio polinomio2) {
-		Polinomio suma = new Polinomio();
+	private double coef;
+	private int exp;
 
-		Nodo iterador = polinomio1.getCabeza();
-		while (null != iterador) {
-			Nodo termino = polinomio2.obtenerTerminoPorExponente(iterador);
-			if (null != termino) {
-				Nodo sumando = new Nodo(iterador.getCoeficiente() + termino.getCoeficiente(), termino.getExponente());
-				suma.agregarTermino(sumando);
-			} else {
-				suma.agregarTermino(new Nodo(iterador.getCoeficiente(), iterador.getExponente()));
-			}
-			iterador = iterador.getSiguiente();
-		}
-		iterador = polinomio2.getCabeza();
-		while (null != iterador) {
-			if (!polinomio1.existeTerminoConExponente(iterador)) {
-
-				suma.agregarTermino(new Nodo(iterador.getCoeficiente(), iterador.getExponente()));
-
-			}
-			iterador = iterador.getSiguiente();
-		}
-		return suma;
+	public Polinomio(double coeficiente, int exponente) {
+		this.coef = 0;
+		this.exp = 0;
 
 	}
 
-	public boolean existeTerminoConExponente(Nodo termino) {
-		Nodo iterador = cabeza;
-		while (null != iterador) {
-			if (iterador.getExponente() == termino.getExponente()) {
-				return true;
+	public Polinomio(int co, int ex) {
+		setPolinomio(co, ex);
+
+	}
+
+
+	public void setPolinomio(int coeficiente, int exponente) {
+		this.coef = coeficiente;
+		this.exp = exponente;
+	}
+
+	public int getExponente() {
+		return this.exp;
+	}
+
+	public void setExponente(int ex) {
+		this.exp = ex;
+	}
+
+	public double getCoeficiente() {
+		return this.coef;
+	}
+
+	public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		if (0d != coef) {
+			if (coef > 0) {
+				sb.append(" + ");
 			}
-			iterador = iterador.getSiguiente();
+			sb.append(coef);
+			switch (exp) {
+			case 0:
+				break;
+			case 1:
+				sb.append(" x ");
+				break;
+			default:
+				sb.append(" x^ ");
+				sb.append(exp);
 
-		}
-		return false;
-
-	}
-
-	public Nodo obtenerTerminoPorExponente(Nodo termino) {
-		Nodo iterador = this.cabeza;
-		while (null != iterador) {
-			if (iterador.getExponente() == termino.getExponente()) {
-				return iterador;
 			}
-			iterador = iterador.getSiguiente();
-		}
-		return null;
-
-	}
-
-	private Nodo obtenerUltimoTermino() {
-		Nodo iterador = cabeza;
-		while (null != iterador && null != iterador.getSiguiente()) {
-			iterador = iterador.getSiguiente();
 
 		}
-		return iterador;
+
+		return sb.toString();
 	}
 
-	public void agregarTermino(Nodo termino) {
-		Nodo ultimoTermino = obtenerUltimoTermino();
-		if (null == ultimoTermino) {
-			cabeza = termino;
+	public int compareTo(Polinomio o) {
+		if (o.getExponente() == this.exp) {
+			return 0;
+		} else if (o.getExponente() > this.exp) {
+			return 1;
 		} else {
-			ultimoTermino.setSiguiente(termino);
+			return -1;
 		}
-
-	}
-
-	public void visualizar() {
-		Nodo iterador = cabeza;
-		List<Nodo> terminos = new ArrayList<Nodo>();
-		while (null != iterador) {
-			terminos.add(iterador);
-			iterador = iterador.getSiguiente();
-		}
-		for (Nodo termino : terminos) {
-			System.out.print(termino.toString() + " " );
-		}
-
 	}
 }
